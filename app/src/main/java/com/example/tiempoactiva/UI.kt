@@ -1,6 +1,7 @@
 package com.example.tiempoactiva
 
 import android.util.Log
+import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -47,38 +48,90 @@ fun SimonSays(vm: MiViewModel) {
     Text(text = Datos.ronda.value.toString(),
         Modifier.padding(horizontal = 115.dp, vertical = 20.dp)
     )
-    Button(onClick = {vm.Uadd(0)},
-        Modifier.padding(horizontal = 30.dp, vertical = 80.dp),
-        colors = ButtonDefaults.buttonColors
-            (containerColor = Color(0,0,233))){
-        }
-        Button(onClick = {vm.Uadd(1)},
-        Modifier.padding(horizontal = 100.dp, vertical = 80.dp),
-            colors = ButtonDefaults.buttonColors
-                (containerColor = Color(0,233,0))){
-        }
-    Button(onClick = {vm.Uadd(3)},
-        Modifier.padding(horizontal = 100.dp, vertical = 130.dp),
-            colors = ButtonDefaults.buttonColors
-                (containerColor = Color(233,233,0))){
-        }
-    Button(onClick = {vm.Uadd(2)},
-        Modifier.padding(horizontal = 30.dp, vertical = 130.dp),
-            colors = ButtonDefaults.buttonColors
-                (containerColor = Color(233,0,0))){
-        }
-    Button(onClick = {vm.addSeq()},
-        Modifier.padding(horizontal = 20.dp, vertical = 220.dp),
-            colors = ButtonDefaults.buttonColors
-                (containerColor = Color(233,233,233))){
-        Text(text = "Start",color = Color(0,0,0))
-        }
+        Azul(vm, Colores.Azul)
+        Verde(vm, Colores.Verde)
+        Amarillo(vm, Colores.Amarillo)
+        Rojo(vm, Colores.Rojo)
+        //start
+        if (Datos.secuencia.count()==0){Start(vm)}
+        else if (Datos.secuencia.count()>0) {Reset(vm)}
     Button(onClick = {vm.check()},
         Modifier.padding(horizontal = 105.dp, vertical = 220.dp),
             colors = ButtonDefaults.buttonColors
                 (containerColor = Color(233,233,233))){
         Image(painter = painterResource(id = R.drawable.arrow), contentDescription = "arrow")
         }
+    }
+}
+
+@Composable
+private fun Start(vm: MiViewModel) {
+    Button(
+        onClick = {
+            vm.reset()
+            vm.addSeq()
+        },
+        Modifier.padding(horizontal = 20.dp, vertical = 220.dp),
+        colors = ButtonDefaults.buttonColors
+            (containerColor = Color(233, 233, 233))
+    ) {
+        Text(text = "Start", color = Color(0, 0, 0))
+    }
+}
+@Composable
+private fun Reset(vm: MiViewModel) {
+    Button(
+        onClick = {
+            vm.reset()
+        },
+        Modifier.padding(horizontal = 20.dp, vertical = 220.dp),
+        colors = ButtonDefaults.buttonColors
+            (containerColor = Color(233, 233, 233))
+    ) {
+        Text(text = "Reset", color = Color(0, 0, 0))
+    }
+}
+@Composable
+private fun Rojo(vm: MiViewModel, color: Colores) {
+    Button(
+        onClick = { vm.Uadd(2) },
+        Modifier.padding(horizontal = 30.dp, vertical = 130.dp),
+        colors = ButtonDefaults.buttonColors
+            (containerColor = color.color.value)
+    ) {
+    }
+}
+
+@Composable
+private fun Amarillo(vm: MiViewModel, color : Colores) {
+    Button(
+        onClick = { vm.Uadd(3) },
+        Modifier.padding(horizontal = 100.dp, vertical = 130.dp),
+        colors = ButtonDefaults.buttonColors
+            (containerColor = color.color.value)
+    ) {
+    }
+}
+
+@Composable
+private fun Verde(vm: MiViewModel,color: Colores) {
+    Button(
+        onClick = { vm.Uadd(1) },
+        Modifier.padding(horizontal = 100.dp, vertical = 80.dp),
+        colors = ButtonDefaults.buttonColors
+            (containerColor = color.color.value)
+    ) {
+    }
+}
+
+@Composable
+private fun Azul(vm: MiViewModel, color: Colores) {
+    Button(
+        onClick = { vm.Uadd(0) },
+        Modifier.padding(horizontal = 30.dp, vertical = 80.dp),
+        colors = ButtonDefaults.buttonColors
+            (containerColor = color.color.value)
+    ) {
     }
 }
 
